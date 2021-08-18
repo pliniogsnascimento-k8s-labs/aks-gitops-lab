@@ -1,0 +1,4 @@
+.terraform*
+private_ssh_key
+*.plan
+*.tfstate*
