@@ -55,7 +55,7 @@ apply:
     - export
     - terraform apply -auto-approve -var-file=./environments/dev.tfvars
   only:
-    - merge_requests
+    - develop
   environment: 
     name: develop
   # rules:
