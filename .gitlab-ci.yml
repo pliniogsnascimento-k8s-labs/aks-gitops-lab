@@ -35,6 +35,7 @@ merge review:
 plan: 
   stage: plan
   script:
+    - *gitlab_tf_backend
     - terraform plan -out out.plan
   only:
     - merge_requests
