@@ -39,7 +39,7 @@ plan:
   stage: plan
   script:
     - *gitlab_tf_backend
-    - terraform plan -out=$PLAN
+    - terraform plan -out=$PLAN -var-file=./environments/dev.tfvars
   only:
     - merge_requests
   artifacts:
@@ -52,7 +52,7 @@ apply:
   # when: manual
   script:
     - *gitlab_tf_backend
-    - terraform apply -auto-approve
+    - terraform apply -auto-approve -var-file=./environments/dev.tfvars
   environment: 
     name: develop
   # rules:
