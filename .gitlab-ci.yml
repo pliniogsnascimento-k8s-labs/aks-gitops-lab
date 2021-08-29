@@ -49,8 +49,9 @@ plan:
 
 apply:
   stage: apply
-  when: manual
+  # when: manual
   script:
+    - *gitlab_tf_backend
     - terraform apply -auto-approve
   environment: 
     name: develop
