@@ -64,7 +64,7 @@ destroy:
   stage: destroy
   script:
     - *gitlab_tf_backend
-    - terraform destroy -auto-approve
+    - terraform destroy -auto-approve -var-file=./environments/dev.tfvars
   when: manual
   only:
     - develop  
