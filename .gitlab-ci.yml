@@ -1,22 +1,44 @@
-# This file is a template, and might need editing before it works on your project.
-# To contribute improvements to CI/CD templates, please follow the Development guide at:
-# https://docs.gitlab.com/ee/development/cicd/templates.html
-# This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+image:
+  name: hashicorp/terraform:1.0.0
+  entrypoint:
+  - '/usr/bin/env'
+  - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
-# This is a sample GitLab CI/CD configuration file that should run without any modifications.
-# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
-# it uses echo commands to simulate the pipeline execution.
-#
-# A pipeline is composed of independent jobs that run scripts, grouped into stages.
-# Stages run in sequential order, but jobs within stages run in parallel.
-#
-# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 
+.gitlab_tf_backend: &gitlab_tf_backend
+  - export TF_ADDRESS=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/production
+  - export TF_HTTP_ADDRESS=${TF_ADDRESS}
+  - export TF_HTTP_LOCK_ADDRESS=${TF_ADDRESS}/lock
+  - export TF_HTTP_LOCK_METHOD=POST
+  - export TF_HTTP_UNLOCK_ADDRESS=${TF_ADDRESS}/lock
+  - export TF_HTTP_UNLOCK_METHOD=DELETE
+  - export TF_HTTP_USERNAME=gitlab-ci-token
+  - export TF_HTTP_PASSWORD=${CI_JOB_TOKEN}
+  - export TF_HTTP_RETRY_WAIT_MIN=5
+  - echo "Using HTTP Backend at $TF_HTTP_ADDRESS"
+  # - terraform --version
+  # - terraform init -reconfigure
+
+
+# stages:          # List of stages for jobs, and their order of execution
+#   - validate
+#   - plan
+#   - test
+#   - deploy
 stages:          # List of stages for jobs, and their order of execution
+  - validate
   - build
   - test
   - deploy
+
+
+merge review:
+  stage: validate
+  script:
+    - *gitlab_tf_backend
+  # only:
+  #   - merge_requests
+
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
