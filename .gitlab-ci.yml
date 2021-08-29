@@ -52,7 +52,10 @@ apply:
   # when: manual
   script:
     - *gitlab_tf_backend
+    - export
     - terraform apply -auto-approve -var-file=./environments/dev.tfvars
+  only:
+    - develop
   environment: 
     name: develop
   # rules:
