@@ -24,17 +24,17 @@ cache:
   - terraform init -reconfigure
 
 stages:          # List of stages for jobs, and their order of execution
-  # - validate
+  - validate
   - plan
 
-# merge review:
-#   stage: validate
-#   script:
-#     - *gitlab_tf_backend
-#     - terraform validate
-#     - terraform fmt -check=true
-#   only:
-#     - merge_requests
+merge review:
+  stage: validate
+  script:
+    - *gitlab_tf_backend
+    - terraform validate
+    - terraform fmt -check=true
+  only:
+    - merge_requests
 
 plan: 
   stage: plan
