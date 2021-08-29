@@ -15,6 +15,10 @@ image:
   - export TF_HTTP_USERNAME=plinio.gsnascimento@gmail.com
   - export TF_HTTP_PASSWORD=${CI_JOB_TOKEN}
   - export TF_HTTP_RETRY_WAIT_MIN=5
+  - export ARM_TENANT_ID=${ARM_TENANT_ID}
+  - export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID}
+  - export ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET}
+  - export ARM_CLIENT_ID=${ARM_CLIENT_ID}
   - echo "Using HTTP Backend at $TF_HTTP_ADDRESS"
   - terraform --version
   - terraform init -reconfigure
