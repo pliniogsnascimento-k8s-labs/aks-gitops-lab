@@ -4,13 +4,11 @@ image:
   - '/usr/bin/env'
   - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
-cache:
-  key: "$CI_COMMIT_SHA"
-  paths:
-    - .terraform
+variables:
+  PLAN: plan.tfplan
 
 .gitlab_tf_backend: &gitlab_tf_backend
-  - export TF_ADDRESS=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/production
+  - export TF_ADDRESS=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/develop
   - export TF_HTTP_ADDRESS=${TF_ADDRESS}
   - export TF_HTTP_LOCK_ADDRESS=${TF_ADDRESS}/lock
   - export TF_HTTP_LOCK_METHOD=POST
@@ -26,6 +24,7 @@ cache:
 stages:          # List of stages for jobs, and their order of execution
   - validate
   - plan
+  - apply
 
 merge review:
   stage: validate
@@ -40,10 +39,16 @@ plan:
   stage: plan
   script:
     - *gitlab_tf_backend
-    # - echo ${ARM_TENANT_ID}
-    # - echo ${ARM_SUBSCRIPTION_ID}
-    # - echo ${ARM_CLIENT_SECRET}
-    # - echo ${ARM_CLIENT_ID}
-    - terraform plan -out out.plan
+    - terraform plan -out=$PLAN
   only:
     - merge_requests
+
+apply:
+  stage: apply
+  when: manual
+  script:
+    - terraform apply $PLAN
+  environment: 
+    name: develop
+  # rules:
+  #   - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == develop
