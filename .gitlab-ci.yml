@@ -16,7 +16,7 @@ image:
   - export TF_HTTP_PASSWORD=${CI_JOB_TOKEN}
   - export TF_HTTP_RETRY_WAIT_MIN=5
   - echo "Using HTTP Backend at $TF_HTTP_ADDRESS"
-  # - terraform --version
+  - terraform --version
   # - terraform init -reconfigure
 
 
