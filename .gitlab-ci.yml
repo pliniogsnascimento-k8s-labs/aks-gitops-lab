@@ -40,10 +40,10 @@ plan:
   stage: plan
   script:
     - *gitlab_tf_backend
-    - echo ${ARM_TENANT_ID}
-    - echo ${ARM_SUBSCRIPTION_ID}
-    - echo ${ARM_CLIENT_SECRET}
-    - echo ${ARM_CLIENT_ID}
-    # - terraform plan -out out.plan
+    # - echo ${ARM_TENANT_ID}
+    # - echo ${ARM_SUBSCRIPTION_ID}
+    # - echo ${ARM_CLIENT_SECRET}
+    # - echo ${ARM_CLIENT_ID}
+    - terraform plan -out out.plan
   only:
     - merge_requests
