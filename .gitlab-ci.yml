@@ -42,7 +42,7 @@ plan:
     - terraform plan -out=$PLAN
   only:
     - merge_requests
-  articfacts:
+  artifacts:
     name: plan
     paths:
       - $PLAN
