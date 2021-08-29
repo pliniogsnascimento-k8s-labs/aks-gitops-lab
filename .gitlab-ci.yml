@@ -58,5 +58,15 @@ apply:
     - develop
   environment: 
     name: develop
-  # rules:
-  #   - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == develop
+
+destroy:
+  stage: destroy
+  script:
+    - *gitlab_tf_backend
+    - terraform destroy -auto-approve
+  when: manual
+  only:
+    - develop  
+  environment:
+    name: develop
+    action: stop
