@@ -21,9 +21,6 @@ image:
 
 stages:          # List of stages for jobs, and their order of execution
   - validate
-  - build
-  - test
-  - deploy
 
 
 merge review:
