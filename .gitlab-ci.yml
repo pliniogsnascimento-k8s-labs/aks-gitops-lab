@@ -44,6 +44,7 @@ plan:
   stage: plan
   script:
     - *gitlab_tf_backend
-    - terraform plan -out out.plan
+    - export
+    # - terraform plan -out out.plan
   only:
     - merge_requests
