@@ -18,6 +18,10 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "argo-apps" {
-    name  = "argo-apps"
-    chart = "./charts/argocd-apps"
+  name  = "argo-apps"
+  chart = "./charts/argocd-apps"
+
+  depends_on = [
+    helm_release.argocd
+  ]
 }

@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/helm"
       version = "2.1.2"
     }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=2.74.0"
+    }
   }
 }
 
@@ -37,11 +41,11 @@ resource "azurerm_resource_group" "cluster_rg" {
 }
 
 module "aks" {
-  source                           = "Azure/aks/azurerm"
-  resource_group_name              = azurerm_resource_group.cluster_rg.name
-  prefix                           = "gitops-demo"
-  agents_count                     = 3
-  agents_max_pods                  = 100
+  source              = "Azure/aks/azurerm"
+  resource_group_name = azurerm_resource_group.cluster_rg.name
+  prefix              = "gitops-demo"
+  agents_count        = 3
+  agents_max_pods     = 100
 
   depends_on = [
     azurerm_resource_group.cluster_rg

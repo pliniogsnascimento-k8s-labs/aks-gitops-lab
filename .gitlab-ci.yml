@@ -1,9 +1,13 @@
 image:
-  name: hashicorp/terraform:1.0.0
+  name: hashicorp/terraform:1.0.5
   entrypoint:
   - '/usr/bin/env'
   - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
+cache:
+  key: "$CI_COMMIT_SHA"
+  paths:
+    - .terraform
 
 .gitlab_tf_backend: &gitlab_tf_backend
   - export TF_ADDRESS=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/production
@@ -12,56 +16,34 @@ image:
   - export TF_HTTP_LOCK_METHOD=POST
   - export TF_HTTP_UNLOCK_ADDRESS=${TF_ADDRESS}/lock
   - export TF_HTTP_UNLOCK_METHOD=DELETE
-  - export TF_HTTP_USERNAME=gitlab-ci-token
+  - export TF_HTTP_USERNAME=plinio.gsnascimento@gmail.com
   - export TF_HTTP_PASSWORD=${CI_JOB_TOKEN}
   - export TF_HTTP_RETRY_WAIT_MIN=5
   - echo "Using HTTP Backend at $TF_HTTP_ADDRESS"
   - terraform --version
-  # - terraform init -reconfigure
+  - terraform init -reconfigure
 
-
-# stages:          # List of stages for jobs, and their order of execution
-#   - validate
-#   - plan
-#   - test
-#   - deploy
 stages:          # List of stages for jobs, and their order of execution
   - validate
-  - build
-  - test
-  - deploy
-
+  - plan
 
 merge review:
   stage: validate
   script:
     - *gitlab_tf_backend
-  # only:
-  #   - merge_requests
+    - terraform validate
+    - terraform fmt -check=true
+  only:
+    - merge_requests
 
-
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
+plan: 
+  stage: plan
   script:
-    - echo "Compiling the code..."
-    - echo "Compile complete."
-
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
-  script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 60
-    - echo "Code coverage is 90%"
-
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
-  script:
-    - echo "Linting code... This will take about 10 seconds."
-    - sleep 10
-    - echo "No lint issues found."
-
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+    - *gitlab_tf_backend
+    # - echo ${ARM_TENANT_ID}
+    # - echo ${ARM_SUBSCRIPTION_ID}
+    # - echo ${ARM_CLIENT_SECRET}
+    # - echo ${ARM_CLIENT_ID}
+    - terraform plan -out out.plan
+  only:
+    - merge_requests
