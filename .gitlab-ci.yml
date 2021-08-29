@@ -4,6 +4,10 @@ image:
   - '/usr/bin/env'
   - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
+cache:
+  key: "$CI_COMMIT_SHA"
+  paths:
+    - .terraform
 
 .gitlab_tf_backend: &gitlab_tf_backend
   - export TF_ADDRESS=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/production
@@ -15,10 +19,10 @@ image:
   - export TF_HTTP_USERNAME=plinio.gsnascimento@gmail.com
   - export TF_HTTP_PASSWORD=${CI_JOB_TOKEN}
   - export TF_HTTP_RETRY_WAIT_MIN=5
-  - export ARM_TENANT_ID=${ARM_TENANT_ID}
-  - export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID}
-  - export ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET}
-  - export ARM_CLIENT_ID=${ARM_CLIENT_ID}
+  # - export ARM_TENANT_ID=${ARM_TENANT_ID}
+  # - export ARM_SUBSCRIPTION_ID=${ARM_SUBSCRIPTION_ID}
+  # - export ARM_CLIENT_SECRET=${ARM_CLIENT_SECRET}
+  # - export ARM_CLIENT_ID=${ARM_CLIENT_ID}
   - echo "Using HTTP Backend at $TF_HTTP_ADDRESS"
   - terraform --version
   - terraform init -reconfigure
