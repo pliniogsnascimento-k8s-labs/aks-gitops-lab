@@ -42,12 +42,16 @@ plan:
     - terraform plan -out=$PLAN
   only:
     - merge_requests
+  artifacts:
+    name: plan
+    paths:
+      - $PLAN
 
 apply:
   stage: apply
   when: manual
   script:
-    - terraform apply $PLAN
+    - terraform apply -auto-approve
   environment: 
     name: develop
   # rules:
