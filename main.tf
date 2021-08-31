@@ -1,4 +1,5 @@
 terraform {
+  backend "http" {}
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -7,6 +8,10 @@ terraform {
     helm = {
       source  = "hashicorp/helm"
       version = "2.1.2"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=2.74.0"
     }
   }
 }
@@ -32,16 +37,17 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "cluster_rg" {
-  name     = "gitops-demo"
-  location = "eastus"
+  name     = var.resource_group_name
+  location = var.location
 }
 
 module "aks" {
-  source                           = "Azure/aks/azurerm"
-  resource_group_name              = azurerm_resource_group.cluster_rg.name
-  prefix                           = "gitops-demo"
-  agents_count                     = 3
-  agents_max_pods                  = 100
+  source                    = "Azure/aks/azurerm"
+  resource_group_name       = azurerm_resource_group.cluster_rg.name
+  prefix                    = var.prefix
+  agents_count              = var.agents_count
+  agents_max_pods           = var.max_pods
+  agents_availability_zones = [1, 2, 3]
 
   depends_on = [
     azurerm_resource_group.cluster_rg
