@@ -67,7 +67,7 @@ destroy:
     - terraform destroy -auto-approve -var-file=./environments/dev.tfvars
   when: manual
   only:
-    - develop  
+    - develop
   environment:
     name: develop
     action: stop

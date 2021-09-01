@@ -25,7 +25,7 @@ image:
   imagePullSecrets: []
 
 ingress:
-  enabled: false
+  enabled: true
   name: litmus-ingress
   annotations:
     # {}
@@ -41,7 +41,7 @@ ingress:
     # name: ""
     paths:
       # -- You may need adapt the path depending your ingress-controller
-      frontend: /(.*)
+      frontend: /litmus(.*)
       # -- You may need adapt the path depending your ingress-controller
       backend: /backend/(.*)
   tls: []
