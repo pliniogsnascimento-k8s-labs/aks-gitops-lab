@@ -28,7 +28,7 @@ ingress:
   enabled: true
   name: litmus-ingress
   annotations:
-    {}
+    # {}
     kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
