@@ -3,7 +3,8 @@ resource "kubernetes_namespace" "litmus" {
     name = "litmus"
 
     labels = {
-      "app" = "litmus"
+      "app"             = "litmus"
+      "istio-injection" = "enabled"
     }
   }
 }

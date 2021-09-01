@@ -25,7 +25,7 @@ image:
   imagePullSecrets: []
 
 ingress:
-  enabled: true
+  enabled: false
   name: litmus-ingress
   annotations:
     # {}
