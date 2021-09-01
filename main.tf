@@ -53,3 +53,14 @@ module "aks" {
     azurerm_resource_group.cluster_rg
   ]
 }
+
+resource "azurerm_kubernetes_cluster_node_pool" "microservice_node_pool" {
+  name                  = "internal"
+  kubernetes_cluster_id = module.aks.aks_id
+  vm_size               = "Standard_DS3_v2"
+  node_count            = 3
+
+  tags = {
+    Environment = "Production"
+  }
+}
