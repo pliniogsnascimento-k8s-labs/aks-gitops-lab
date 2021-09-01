@@ -48,15 +48,15 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts: []
 
-upgradeAgent:
-  controlPlane:
-    image:
-      repository: upgrade-agent-cp
-      tag: "ci"
-      pullPolicy: "Always"
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+# upgradeAgent:
+#   controlPlane:
+#     image:
+#       repository: upgrade-agent-cp
+#       tag: "ci"
+#       pullPolicy: "Always"
+#   nodeSelector: {}
+#   tolerations: []
+#   affinity: {}
 
 portal:
   frontend:
