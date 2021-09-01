@@ -41,7 +41,7 @@ ingress:
     # name: ""
     paths:
       # -- You may need adapt the path depending your ingress-controller
-      frontend: /litmus(.*)
+      frontend: /(.*)
       # -- You may need adapt the path depending your ingress-controller
       backend: /backend/(.*)
   tls: []
