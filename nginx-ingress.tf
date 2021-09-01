@@ -8,7 +8,7 @@ resource "kubernetes_namespace" "nginx-ingress" {
   }
 }
 
-resource "helm-release" "ingress-nginx" {
+resource "helm_release" "ingress-nginx" {
   name       = "nginx-ingress"
   namespace  = kubernetes_namespace.nginx-ingress.metadata[0].name
   chart      = "nginx-ingress"
