@@ -1,19 +1,19 @@
-resource "kubernetes_namespace" "litmus" {
-  metadata {
-    name = "litmus"
+# resource "kubernetes_namespace" "litmus" {
+#   metadata {
+#     name = "litmus"
 
-    labels = {
-      "app" = "litmus"
-    }
-  }
-}
+#     labels = {
+#       "app" = "litmus"
+#     }
+#   }
+# }
 
-resource "helm_release" "litmuschaos" {
-  name = "litmus"
+# resource "helm_release" "litmuschaos" {
+#   name = "litmus"
 
-  repository = "https://litmuschaos.github.io/litmus-helm/"
-  chart      = "litmus"
-  namespace  = kubernetes_namespace.litmus.metadata[0].name
+#   repository = "https://litmuschaos.github.io/litmus-helm/"
+#   chart      = "litmus"
+#   namespace  = kubernetes_namespace.litmus.metadata[0].name
 
-  values = ["${file("${path.module}/charts/litmus/values.yaml")}"]
-}
+#   values = ["${file("${path.module}/charts/litmus/values.yaml")}"]
+# }
