@@ -15,6 +15,7 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   namespace  = kubernetes_namespace.argocd.metadata[0].name
 
+  values = ["${file("${path.module}/charts/argocd/values.yaml")}"]
 }
 
 resource "helm_release" "argo-apps" {
