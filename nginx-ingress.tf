@@ -1,16 +1,16 @@
-resource "kubernetes_namespace" "nginx-ingress" {
-  metadata {
-    name = "nginx-ingress"
+# resource "kubernetes_namespace" "nginx-ingress" {
+#   metadata {
+#     name = "nginx-ingress"
 
-    labels = {
-      "app" = "nginx-ingress"
-    }
-  }
-}
+#     labels = {
+#       "app" = "nginx-ingress"
+#     }
+#   }
+# }
 
-resource "helm_release" "ingress-nginx" {
-  name       = "nginx-ingress"
-  namespace  = kubernetes_namespace.nginx-ingress.metadata[0].name
-  chart      = "ingress-nginx"
-  repository = "https://kubernetes.github.io/ingress-nginx"
-}
+# resource "helm_release" "ingress-nginx" {
+#   name       = "nginx-ingress"
+#   namespace  = kubernetes_namespace.nginx-ingress.metadata[0].name
+#   chart      = "ingress-nginx"
+#   repository = "https://kubernetes.github.io/ingress-nginx"
+# }
