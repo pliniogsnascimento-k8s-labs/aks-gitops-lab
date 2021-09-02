@@ -20,6 +20,10 @@ resource "helm_release" "istio_discovery" {
   namespace = kubernetes_namespace.istio-system.metadata[0].name
 
   chart = "charts/istio/istio-control/istio-discovery"
+
+  depends_on = [
+    helm_release.istio_base
+  ]
 }
 
 resource "helm_release" "istio_ingress" {
@@ -27,4 +31,9 @@ resource "helm_release" "istio_ingress" {
   namespace = kubernetes_namespace.istio-system.metadata[0].name
 
   chart = "charts/istio/gateways/istio-ingress"
+
+  depends_on = [
+    helm_release.istio_base,
+    helm_release.istio_discovery
+  ]
 }
