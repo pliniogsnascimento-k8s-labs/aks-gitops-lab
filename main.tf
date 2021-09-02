@@ -45,7 +45,7 @@ module "aks" {
   source                    = "Azure/aks/azurerm"
   resource_group_name       = azurerm_resource_group.cluster_rg.name
   prefix                    = var.prefix
-  agents_count              = var.agents_count
+  agents_count              = var.default_nodepool_agents_count
   agents_max_pods           = var.max_pods
   agents_availability_zones = [1, 2, 3]
 
@@ -55,10 +55,10 @@ module "aks" {
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "microservice_node_pool" {
-  name                  = "internal"
+  name                  = "microservice_node_pool"
   kubernetes_cluster_id = module.aks.aks_id
   vm_size               = "Standard_DS3_v2"
-  node_count            = 2
+  node_count            = var.microservice_nodepool_agents_count
 
   tags = {
     Environment = "Production"
