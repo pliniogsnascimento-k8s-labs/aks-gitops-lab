@@ -611,7 +611,7 @@ server:
     ##
     hosts:
       # - argocd.example.com
-      - 20.81.65.20
+      - argocd.gitops.pliniogsnascimento.dev
     paths:
       - /
     pathType: Prefix
