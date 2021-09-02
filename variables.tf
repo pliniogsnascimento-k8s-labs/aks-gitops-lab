@@ -1,5 +1,9 @@
-variable "agents_count" {
-  default = 4
+variable "default_nodepool_agents_count" {
+  default = 3
+}
+
+variable "microservice_nodepool_agents_count" {
+  default = 1
 }
 
 variable "max_pods" {
