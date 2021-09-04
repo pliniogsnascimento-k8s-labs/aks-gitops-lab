@@ -1,4 +1,4 @@
 include:
-  - project: '/gitops-demo18/pipelines'
+  - project: 'gitops-demo18/pipelines'
     ref: main
     file: '/templates/terraform.yml'
