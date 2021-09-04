@@ -25,7 +25,6 @@ stages:          # List of stages for jobs, and their order of execution
   - validate
   - plan
   - apply
-  - destroy
 
 merge review:
   stage: validate
@@ -50,7 +49,7 @@ plan:
 
 apply:
   stage: apply
-  # when: manual
+  when: manual
   script:
     - *gitlab_tf_backend
     - export
@@ -61,7 +60,7 @@ apply:
     name: develop
 
 destroy:
-  stage: destroy
+  stage: apply
   script:
     - *gitlab_tf_backend
     - terraform destroy -auto-approve -var-file=./environments/dev.tfvars
