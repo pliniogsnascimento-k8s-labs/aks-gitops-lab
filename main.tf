@@ -55,7 +55,7 @@ module "aks" {
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "msnodepool" {
-  name                  = "mnodepool"
+  name                  = "msnodepool"
   kubernetes_cluster_id = module.aks.aks_id
   vm_size               = var.agents_size
   node_count            = var.microservice_nodepool_agents_count
