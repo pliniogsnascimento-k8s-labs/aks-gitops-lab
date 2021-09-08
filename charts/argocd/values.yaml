@@ -601,7 +601,8 @@ server:
 
   ingress:
     enabled: true
-    annotations: {}
+    annotations:
+      kubernetes.io/ingress.class: nginx
     labels: {}
     ingressClassName: ""
 
