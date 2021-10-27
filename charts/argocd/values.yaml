@@ -604,7 +604,7 @@ server:
     annotations:
       kubernetes.io/ingress.class: nginx
     labels: {}
-    ingressClassName: ""
+    ingressClassName: "nginx"
 
     ## Argo Ingress.
     ## Hostnames must be provided if Ingress is enabled.
@@ -635,7 +635,7 @@ server:
       # - secretName: argocd-tls-certificate
       #   hosts:
       #     - argocd.example.com
-    https: false
+    https: true
   # dedicated ingress for gRPC as documented at
   # https://argoproj.github.io/argo-cd/operator-manual/ingress/
   ingressGrpc:
