@@ -22,17 +22,17 @@ module "aks" {
   ]
 }
 
-resource "azurerm_kubernetes_cluster_node_pool" "msnodepool" {
-  name                  = "msnodepool"
-  kubernetes_cluster_id = module.aks.aks_id
-  vm_size               = var.agents_size
-  node_count            = var.microservice_nodepool_agents_count
+# resource "azurerm_kubernetes_cluster_node_pool" "msnodepool" {
+#   name                  = "msnodepool"
+#   kubernetes_cluster_id = module.aks.aks_id
+#   vm_size               = var.agents_size
+#   node_count            = var.microservice_nodepool_agents_count
 
-  node_labels = {
-    "scope" = "Applications"
-  }
+#   node_labels = {
+#     "scope" = "Applications"
+#   }
 
-  tags = {
-    Environment = "Production"
-  }
-}
+#   tags = {
+#     Environment = "Production"
+#   }
+# }
