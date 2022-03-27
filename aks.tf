@@ -10,8 +10,8 @@ module "aks" {
   agents_count              = var.default_nodepool_agents_count
   agents_max_pods           = var.max_pods
   agents_availability_zones = [1, 2, 3]
-  kubernetes_version        = "1.20.9"
-  orchestrator_version      = "1.20.9"
+  kubernetes_version        = var.kubernetes_version
+  orchestrator_version      = var.kubernetes_version
 
   agents_labels = {
     "scope" = "ControlPlane"
@@ -22,17 +22,17 @@ module "aks" {
   ]
 }
 
-# resource "azurerm_kubernetes_cluster_node_pool" "msnodepool" {
-#   name                  = "msnodepool"
-#   kubernetes_cluster_id = module.aks.aks_id
-#   vm_size               = var.agents_size
-#   node_count            = var.microservice_nodepool_agents_count
+resource "azurerm_kubernetes_cluster_node_pool" "msnodepool" {
+  name                  = "msnodepool"
+  kubernetes_cluster_id = module.aks.aks_id
+  vm_size               = var.agents_size
+  node_count            = var.microservice_nodepool_agents_count
 
-#   node_labels = {
-#     "scope" = "Applications"
-#   }
+  node_labels = {
+    "scope" = "Applications"
+  }
 
-#   tags = {
-#     Environment = "Production"
-#   }
-# }
+  tags = {
+    Environment = "Production"
+  }
+}

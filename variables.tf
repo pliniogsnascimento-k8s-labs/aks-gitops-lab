@@ -3,7 +3,7 @@ variable "default_nodepool_agents_count" {
 }
 
 variable "microservice_nodepool_agents_count" {
-  default = 1
+  default = 0
 }
 
 variable "max_pods" {
@@ -24,4 +24,8 @@ variable "location" {
 
 variable "prefix" {
   default = "default_prefix"
+}
+
+variable "kubernetes_version" {
+
 }
