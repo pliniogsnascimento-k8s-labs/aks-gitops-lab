@@ -3,5 +3,5 @@ prefix="gitops-demo-dev"
 resource_group_name="gitops-demo-dev"
 location="eastus"
 
-kubernetes_version="1.20.15"
-microservice_nodepool_agents_count=3
+kubernetes_version="1.22.6"
+microservice_nodepool_agents_count=0
