@@ -2,3 +2,6 @@
 private_ssh_key
 *.plan
 *.tfstate*
+
+.vscode
+.DS_Store
