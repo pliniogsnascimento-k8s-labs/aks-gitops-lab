@@ -13,6 +13,8 @@ jobs:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_STORAGE_RG_NAME: ${{ secrets.AZURE_STORAGE_RG_NAME }}
+      ARM_STORAGE_ACCOUNT_NAME : ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
     steps:
     - uses: actions/checkout@v3
     - uses: hashicorp/setup-terraform@v2
@@ -25,7 +27,14 @@ jobs:
     - name: Terraform Init
       id: init
       run: | 
-        terraform init
+        terraform init \
+          -backend-config="resource_group_name=$ARM_STORAGE_RG_NAME" \
+          -backend-config="storage_account_name=$ARM_STORAGE_ACCOUNT_NAME" \
+          -backend-config="container_name=tfstate" \ 
+          -backend-config="key=terraform.tfstate" \
+          -backend-config="use_oidc=true" \
+          -backend-config="subscription_id=$ARM_SUBSCRIPTION_ID" \
+          -backend-config="tenant_id=$ARM_TENANT_ID" \
 
     - name: Terraform Validate
       id: validate
@@ -33,4 +42,4 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan -no-color -out out.plan -var-file=./environments/dev.tfvars 
+      run: terraform plan -no-color -out out.plan -var-file=./environments/dev.tfvars
