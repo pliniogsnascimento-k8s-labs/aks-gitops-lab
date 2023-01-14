@@ -15,5 +15,6 @@ provider "helm" {
 }
 
 provider "azurerm" {
+  use_oidc = true
   features {}
 }
