@@ -1,4 +1,6 @@
 terraform {
+  backend "azurerm" {}
+
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -10,7 +12,7 @@ terraform {
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">=3.0.0"
+      version = "=2.74.0"
     }
   }
 }
