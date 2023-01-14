@@ -34,7 +34,7 @@ jobs:
           -backend-config="key=terraform.tfstate" \
           -backend-config="use_oidc=true" \
           -backend-config="subscription_id=$ARM_SUBSCRIPTION_ID" \
-          -backend-config="tenant_id=$ARM_TENANT_ID" \
+          -backend-config="tenant_id=$ARM_TENANT_ID"
 
     - name: Terraform Validate
       id: validate
