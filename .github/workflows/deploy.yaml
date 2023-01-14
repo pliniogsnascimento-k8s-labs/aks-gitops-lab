@@ -36,4 +36,4 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform -no-color plan -out out.plan -var-file=./environments/dev.tfvars 
+      run: terraform plan -no-color -out out.plan -var-file=./environments/dev.tfvars 
