@@ -1,4 +1,4 @@
-name: "Terraform apply"
+name: "Terraform destroy"
 
 on: workflow_dispatch
 
@@ -40,7 +40,7 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan -no-color -out out.plan -var-file=./environments/dev.tfvars
+      run: terraform plan -no-color -out out.plan -var-file=./environments/dev.tfvars --destroy
 
     - name: Terraform apply
       id: apply
