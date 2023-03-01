@@ -5,6 +5,7 @@ resource "azurerm_resource_group" "cluster_rg" {
 
 module "aks" {
   source                            = "Azure/aks/azurerm"
+  version                           = "6.7.0"
   resource_group_name               = azurerm_resource_group.cluster_rg.name
   prefix                            = var.prefix
   agents_count                      = var.default_nodepool_agents_count
