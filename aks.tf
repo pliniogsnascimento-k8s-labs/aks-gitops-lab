@@ -4,16 +4,15 @@ resource "azurerm_resource_group" "cluster_rg" {
 }
 
 module "aks" {
-  source                            = "Azure/aks/azurerm"
-  version                           = "6.7.0"
-  resource_group_name               = azurerm_resource_group.cluster_rg.name
-  prefix                            = var.prefix
-  agents_count                      = var.default_nodepool_agents_count
-  agents_max_pods                   = var.max_pods
-  agents_availability_zones         = [1, 2, 3]
-  kubernetes_version                = var.kubernetes_version
-  orchestrator_version              = var.kubernetes_version
-  role_based_access_control_enabled = true
+  source                    = "Azure/aks/azurerm"
+  version                   = "6.5.0"
+  resource_group_name       = azurerm_resource_group.cluster_rg.name
+  prefix                    = var.prefix
+  agents_count              = var.default_nodepool_agents_count
+  agents_max_pods           = var.max_pods
+  agents_availability_zones = [1, 2, 3]
+  kubernetes_version        = var.kubernetes_version
+  orchestrator_version      = var.kubernetes_version
 
   agents_labels = {
     "scope" = "ControlPlane"
