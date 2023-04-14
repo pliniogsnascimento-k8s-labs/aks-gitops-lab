@@ -13,6 +13,7 @@ module "aks" {
   agents_availability_zones = [1, 2, 3]
   kubernetes_version        = var.kubernetes_version
   orchestrator_version      = var.kubernetes_version
+  network_plugin            = "none"
 
   agents_labels = {
     "scope" = "ControlPlane"
