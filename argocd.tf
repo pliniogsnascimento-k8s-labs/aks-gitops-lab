@@ -7,6 +7,17 @@ resource "helm_release" "argocd" {
   values           = ["${file("${path.module}/charts/argocd/values.yaml")}"]
 }
 
+resource "helm_release" "argo_rollouts" {
+  name             = "argo-rollouts"
+  repository       = "https://argoproj.github.io/argo-helm"
+  chart            = "argo-rollouts"
+  namespace        = "argo-rollouts"
+  create_namespace = true
+  version          = "2.37.2"
+
+  values = ["${file("${path.module}/charts/argocd/values-rollouts.yaml")}"]
+}
+
 resource "helm_release" "argo-apps" {
   name             = "argo-apps"
   chart            = "./charts/argocd-apps"

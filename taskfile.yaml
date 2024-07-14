@@ -18,6 +18,17 @@ tasks:
   destroy:
     cmds:
       - terraform destroy -auto-approve
+  
+  versions:
+    cmds:
+      - az aks get-versions --location eastus --output table
+
+  argo-rollouts:
+    cmds:
+      - argocd app sync argocd/istio-base
+      - argocd app sync argocd/istiod
+      - argocd app sync argocd/istio-ingress
+      - argocd app sync argocd/prometheus-operator
 
   force-delete:
     cmds:
