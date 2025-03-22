@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "cluster_rg" {
 
 module "aks" {
   source                    = "Azure/aks/azurerm"
-  version                   = "6.5.0"
+  version                   = "9.4.1"
   resource_group_name       = azurerm_resource_group.cluster_rg.name
   prefix                    = local.prefix
   agents_count              = local.default_nodepool_agents_count
@@ -13,6 +13,7 @@ module "aks" {
   agents_availability_zones = [1, 2, 3]
   kubernetes_version        = local.kubernetes_version
   orchestrator_version      = local.kubernetes_version
+  rbac_aad                  = false
   # network_plugin            = "none"
 
   agents_labels = {
@@ -24,18 +25,3 @@ module "aks" {
   ]
 }
 
-resource "azurerm_kubernetes_cluster_node_pool" "msnodepool" {
-  name                  = "msnodepool"
-  kubernetes_cluster_id = module.aks.aks_id
-  vm_size               = local.agents_size
-  node_count            = local.microservice_nodepool_agents_count
-  priority              = "Spot"
-
-  node_labels = {
-    "scope" = "Applications"
-  }
-
-  tags = {
-    Environment = "Production"
-  }
-}

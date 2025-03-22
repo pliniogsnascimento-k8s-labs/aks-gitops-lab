@@ -11,6 +11,7 @@ tasks:
 
   apply:
     cmds:
+      - terraform init -upgrade
       - terraform plan -out out.plan
       - terraform apply "out.plan"
       - az aks get-credentials --resource-group gitops --name gitops-aks
@@ -19,10 +20,6 @@ tasks:
     cmds:
       - terraform destroy -auto-approve
   
-  versions:
-    cmds:
-      - az aks get-versions --location eastus --output table
-
   argo-rollouts:
     cmds:
       - argocd app sync argocd/istio-base
@@ -36,7 +33,6 @@ tasks:
       - rm *tfstate*
 
   login-argo:
-    # TODO: Add question if port-forward is running
     cmds:
       - read -p "Run in another terminal:kubectl port-forward svc/argo-cd-argocd-server 8080:443 -n argocd"
       - argocd login localhost:8080 --insecure --username admin --password $(kubectl get secrets argocd-initial-admin-secret -ojsonpath='{.data.password}' -n argocd |base64 --decode)
