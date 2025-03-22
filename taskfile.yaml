@@ -11,14 +11,14 @@ tasks:
 
   apply:
     cmds:
-      - terraform init -upgrade
-      - terraform plan -out out.plan
-      - terraform apply "out.plan"
+      - tofu init -upgrade
+      - tofu plan -out out.plan
+      - tofu apply "out.plan"
       - az aks get-credentials --resource-group gitops --name gitops-aks
   
   destroy:
     cmds:
-      - terraform destroy -auto-approve
+      - tofu destroy -auto-approve
   
   argo-rollouts:
     cmds:
