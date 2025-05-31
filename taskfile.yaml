@@ -38,6 +38,10 @@ tasks:
       - argocd login localhost:8080 --insecure --username admin --password $(kubectl get secrets argocd-initial-admin-secret -ojsonpath='{.data.password}' -n argocd |base64 --decode)
       - open http://localhost:8080
 
+  argo-secret:
+    cmds:
+      - kubectl get secrets argocd-initial-admin-secret -ojsonpath='{.data.password}' -n argocd |base64 --decode |pbcopy
+
   aks-versions:
     cmds:
       - az aks get-versions --location eastus --output table

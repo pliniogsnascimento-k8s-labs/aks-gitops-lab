@@ -1,4 +1,5 @@
 resource "helm_release" "argocd" {
+  count            = 0
   name             = "argo-cd"
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argo-cd"
@@ -8,6 +9,7 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "argo_rollouts" {
+  count            = 0
   name             = "argo-rollouts"
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argo-rollouts"
@@ -19,6 +21,7 @@ resource "helm_release" "argo_rollouts" {
 }
 
 resource "helm_release" "argo-apps" {
+  count            = 0
   name             = "argo-apps"
   chart            = "./charts/argocd-apps"
   namespace        = "argocd"

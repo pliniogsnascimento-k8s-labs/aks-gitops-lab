@@ -6,5 +6,5 @@ locals {
   resource_group_name                = "gitops"
   location                           = "eastus"
   prefix                             = "gitops"
-  kubernetes_version                 = "1.31.6"
+  kubernetes_version                 = "1.32.4"
 }
